@@ -1,6 +1,6 @@
 # How to build phonegap-plugin-push with Ant
 
-Cordova plugin [phonegap-plugin-push](https://github.com/phonegap/phonegap-plugin-push) is made for build with gradle.
+Cordova plugin [phonegap-plugin-push](https://github.com/phonegap/phonegap-plugin-push) is made to build with gradle.
 
 Ant is not able to resolve `<framework>` tags of `plugin.xml` from Android SDK.
 
@@ -16,8 +16,11 @@ Install Android SDK resources listed in the [documentation](https://github.com/p
 
 Copy two files to `plugins/phonegap-plugin-push/src/android/libs`:
 
+### Copy jar files
 - &lt;ANDROID_SDK&gt;/extras/android/support/v13/android-support-v13.jar
 - &lt;ANDROID_SDK&gt;/extras/android/google_play_services/libproject/google-play-services_lib/libs/google-play-services.jar
+
+### Edit `plugin.xml`
 
 Open `plugins/phonegap-plugin-push/plugin.xml` for editing.
 
@@ -31,3 +34,16 @@ Add these items:
 ```
 
 Save and close `plugin.xml`.
+
+## How to build with Ant
+
+```bash
+$ cordova build android -- --ant
+```
+
+or
+
+```bash
+$ export ANDROID_BUILD=ant
+$ cordova build android
+```
