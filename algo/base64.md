@@ -74,7 +74,7 @@ String base64decode(String str) throws UnsupportedEncodingException {
 
 ```
 
-- https://developer.android.com/reference/android/util/Base64.htmls
+- https://developer.android.com/reference/android/util/Base64.html
 
 ## Objective-C
 
