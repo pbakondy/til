@@ -2,7 +2,7 @@
 
 Problem: I have two cordova plugins. I want to use a public method of the first plugin from the second plugin.
 
-## Solution
+## Solution for Android platform
 
 ### First plugin
 
@@ -75,4 +75,71 @@ public class SecondPlugin extends CordovaPlugin {
   }
 
 }
+```
+
+## Solution for iOS platform
+
+### First plugin
+
+Plugin name definition in `plugin.xml`
+
+```xml
+<plugin ...>
+
+  <platform name="ios">
+    <config-file target="config.xml" parent="/*">
+      <feature name="FirstPlugin">
+        <param name="ios-package" value="FirstPlugin" />
+        <param name="onload" value="true" />
+      </feature>
+    </config-file>
+  </platform>
+
+  ...
+
+</plugin>
+```
+
+Method definitions in `FirstPlugin.h`
+
+```objc
+#import <Cordova/CDVPlugin.h>
+
+@interface FirstPlugin : CordovaPlugin
+
+// public cordova methods
+- (void)method1:(CDVInvokedUrlCommand *)command;
+- (void)method2:(CDVInvokedUrlCommand *)command;
+
+// shared methods for another plugins
+- (void)internalMethod1;
+- (NSString *)internalMethod2:(NSString *)message;
+
+@end
+```
+
+### Second plugin
+
+Method calls in `SecondPlugin.m`
+
+```objc
+#import SecondPlugin.h
+#import FirstPlugin.h
+
+@implementation SecondPlugin
+
+- (void)secondPluginMethod:(CDVInvokedUrlCommand *)command {
+
+  // ...
+
+  [[self.commandDelegate getCommandInstance:@"FirstPlugin"] internalMethod1];
+
+  NSString *return = [[self.commandDelegate getCommandInstance:@"FirstPlugin"] internalMethod2:@"message"];
+
+  // ...
+
+}
+
+@end
+
 ```
