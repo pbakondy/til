@@ -92,7 +92,7 @@ To do this we need to create a new `NSURLSessionConfiguration` instance and use 
 ```objc
 NSString *uuid = [[NSUUID UUID] UUIDString];
 
-NSHTTPCookieStorage *cookieStorage = [[NSHTTPCookieStorage alloc] _initWithIdentifier:uuid private:0];
+NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedCookieStorageForGroupContainerIdentifier:uuid];
 
 cookieStorage.cookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
 
